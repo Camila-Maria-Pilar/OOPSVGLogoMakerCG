@@ -4,7 +4,7 @@ const Triangle = require('./lib/Triangle');
 const Square = require('./lib/Square');
 const { writeSvgFile } = require('./lib/fileUtils');
 
-function promptUser() {
+async function promptUser() {
   return inquirer.prompt([
     {
       type: 'input',
@@ -33,20 +33,19 @@ function promptUser() {
 async function generateLogo() {
   try {
     const answers = await promptUser();
-
     const { text, textColor, shape, shapeColor } = answers;
 
     let shapeInstance;
 
     switch (shape) {
       case 'circle':
-        shapeInstance = new Circle(shapeColor);
+        shapeInstance = new Circle(text, textColor, shapeColor);
         break;
       case 'triangle':
-        shapeInstance = new Triangle(shapeColor);
+        shapeInstance = new Triangle(text, textColor, shapeColor);
         break;
       case 'square':
-        shapeInstance = new Square(shapeColor);
+        shapeInstance = new Square(text, textColor, shapeColor);
         break;
       default:
         console.log('Invalid shape selection.');
